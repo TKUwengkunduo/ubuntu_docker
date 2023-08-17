@@ -30,3 +30,5 @@ future
 gputil
 
 numpy==1.25.2
+
+pyserial
