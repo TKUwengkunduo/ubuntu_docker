@@ -84,7 +84,9 @@ RUN apt update && \
 #COPY ./yolov4-tiny-docker.bash /home/darknet_ros2_ws/yolov4-tiny-docker.bash
 
 # RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
-RUN LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs/:$LD_LIBRARY_PATH
+RUN echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs/:$LD_LIBRARY_PATH" >> ~/.bashrc
+RUN echo "export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1:$LD_PRELOAD" >> ~/.bashrc
+
 
 ######################## Register the server's public key ############## 
 ####Realsense####
@@ -180,5 +182,5 @@ WORKDIR /home/${USER}/work
 # ENTRYPOINT ["byobu"]
 # ENTRYPOINT ["/entrypoint.sh", "byobu"]
 # ENTRYPOINT ["/entrypoint.sh", "bash"]
-# ENTRYPOINT ["/entrypoint.sh", "terminator"]
-ENTRYPOINT ["/entrypoint.sh", "zsh"]
+ENTRYPOINT ["/entrypoint.sh", "terminator"]
+# ENTRYPOINT ["/entrypoint.sh", "zsh"]
