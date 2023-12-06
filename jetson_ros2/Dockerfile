@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
+FROM dustynv/ros:humble-desktop-l4t-r35.4.1
 
 # Maintainer Information
 LABEL maintainer="wengkunduo@gmail.com"

@@ -7,12 +7,16 @@ file_dir="$(dirname $0)"
 # Get WorkSpace parameters
 workspace=$(readlink -f "${0}")
 workspace=${workspace%_ws*}
-workspace_name=${workspace##*/}_ros2_cuda
+workspace_name=${workspace##*/}
 workspace_path=${workspace}"_ws"
 
 # Docker image and container name
-image_name=${workspace_name}
+image_name=$(echo ${workspace_name} | tr '[:upper:]' '[:lower:]')
 container_name=${workspace_name}
+
+
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+CONFIG_PATH="$SCRIPT_DIR/config/shell/terminator/config"
 
 # Start sharing xhost
 # You can also comment it, if you report an error
@@ -56,14 +60,16 @@ docker_run() {
         --net=host \
         --ipc=host \
         $1 \
+        --runtime nvidia \
         --privileged \
         -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-        -v ${HOME}/.Xauthority:$docker/.Xauthority \
+        -v ${HOME}/.Xauthority:/home/${user}/.Xauthority \
         -v ${workspace_path}:${HOME}/work \
         -v /dev:/dev \
-        -v /etc/timezone:/etc/timezone:ro \
-        -v /etc/localtime:/etc/localtime:ro \
-        -e XAUTHORITY=${HOME}_folder/.Xauthority \
+        -v ./config/shell/terminator/config:/home/${USER}/.config/terminator/config \
+        -v /run/user/$(id -u)/:/run/user/$(id -u) \
+        -e DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus \
+        -e XAUTHORITY=${HOME}/.Xauthority \
         -e DISPLAY=$DISPLAY \
         -e QT_X11_NO_MITSHM=1 \
         -it --name $container_name $(id -un)/${image_name}
