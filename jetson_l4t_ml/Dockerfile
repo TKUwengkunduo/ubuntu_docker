@@ -56,6 +56,9 @@ RUN apt install -y python3-tk
 # 安裝opencv與tensorflow
 # RUN pip3 install opencv-python tensorflow==2.11.0 matplotlib
 
+# Dynamixel-SDK
+RUN pip3 install dynamixel-sdk
+
 # Switch apt source to Taiwan's mirror
 RUN sed -i 's@archive.ubuntu.com@tw.archive.ubuntu.com@g' /etc/apt/sources.list
 
