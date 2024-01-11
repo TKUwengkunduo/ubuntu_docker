@@ -67,6 +67,16 @@ RUN echo "source /opt/ros/humble/setup.bash" >> /home/${USER}/.bashrc
 # ROBOTIS DYNAMIXEL
 # RUN pip3 install pynput
 
+
+#=========================================================
+#    YOLOv7
+#=========================================================
+RUN apt-get install unzip
+RUN pip3 install numpy tqdm pandas seaborn unzip wandb
+RUN pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+RUN pip3 install tensorflow==2.15.0
+
+
 # Timezone
 RUN echo "tzdata tzdata/Areas select Asia" | debconf-set-selections && \
     echo "tzdata tzdata/Zones/Asia select Taipei" | debconf-set-selections && \
