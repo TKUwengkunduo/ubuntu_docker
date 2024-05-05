@@ -36,6 +36,7 @@ RUN groupadd --gid ${GID} ${GROUP} \
 # Update and Install Packages
 RUN apt-get update
 RUN apt-get install -y software-properties-common
+RUN apt-get install -y bash-completion
 RUN apt-get install -y at-spi2-core
 RUN apt-get install -y htop git wget curl
 RUN apt-get install -y byobu zsh
@@ -52,6 +53,13 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN apt update
 RUN apt install -y python3-tk
+
+#=========================================================
+#    Modifly bash
+#=========================================================
+RUN echo 'if [ -f /etc/bash_completion ]; then' >> /etc/bash.bashrc \
+    && echo '    . /etc/bash_completion' >> /etc/bash.bashrc \
+    && echo 'fi' >> /etc/bash.bashrc
 
 # 安裝opencv與tensorflow
 # RUN pip3 install opencv-python tensorflow==2.11.0 matplotlib

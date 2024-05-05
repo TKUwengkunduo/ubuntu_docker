@@ -26,6 +26,7 @@ RUN sed -i 's@archive.ubuntu.com@ftp.tku.edu.tw/@g' /etc/apt/sources.list
 # Update and Install Packages
 RUN apt-get update && apt-get install -y \
     software-properties-common \
+    bash-completion \
     at-spi2-core \
     htop sudo git wget curl \
     byobu zsh \
@@ -39,6 +40,13 @@ RUN apt-get update && apt-get install -y \
     cmake && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+#=========================================================
+#    Modifly bash
+#=========================================================
+RUN echo 'if [ -f /etc/bash_completion ]; then' >> /etc/bash.bashrc \
+    && echo '    . /etc/bash_completion' >> /etc/bash.bashrc \
+    && echo 'fi' >> /etc/bash.bashrc
 
 
 #=========================================================
