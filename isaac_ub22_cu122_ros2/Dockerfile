@@ -20,8 +20,8 @@ ARG GROUP=initial
 ARG GID=1000
 
 # Switch apt source to Taiwan's mirror
-# RUN sed -i 's@archive.ubuntu.com@tw.archive.ubuntu.com@g' /etc/apt/sources.list
-RUN sed -i 's@archive.ubuntu.com@ftp.tku.edu.tw/@g' /etc/apt/sources.list
+RUN sed -i 's@archive.ubuntu.com@tw.archive.ubuntu.com@g' /etc/apt/sources.list
+# RUN sed -i 's@archive.ubuntu.com@ftp.tku.edu.tw/@g' /etc/apt/sources.list
 
 # Update and Install Packages
 RUN apt-get update && apt-get install -y \
@@ -93,7 +93,15 @@ RUN apt-get update && apt-get install -y ros-humble-navigation2 \
 # ROBOTIS DYNAMIXEL
 # RUN pip3 install pynput
 
+#=========================================================
+#    Installing OpenAI’s Gym library https://gymnasium.farama.org/index.html
+#=========================================================
+RUN pip3 install gymnasium
 
+#=========================================================
+#    Installing Stable-Baselines3  https://stable-baselines3.readthedocs.io/en/master/
+#=========================================================
+RUN pip3 install stable_baselines3
 
 #=========================================================
 #    Setting up Python PIP mirror for Taiwan
